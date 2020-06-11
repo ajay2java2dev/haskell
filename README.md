@@ -20,4 +20,4 @@
 
 ## 10. Not yet though !
 
-## 11. Lets learn Hashkell - Again !!!
+## 11. Lets learn Haskell - Again !!!
