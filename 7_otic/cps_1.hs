@@ -18,6 +18,49 @@ cdouble a k = k (a * 2)
 cinc a k = k (a + 1)
 creport a = a
 
+-- more changes
+cinc1 a k = k (a+1)
+cdec1 a k = k (a-1)
+cadd1 a b k = k (a + b)
+creport1 a = a
+
+-- RUN : > cinc1 4 (\a -> cdec1 5 (\b -> cadd1 a b creport1))
+-- => output : 9
+
+
+-- ##### Continuations and Recursion #####
+-- simple recurssion.
+multlist []  = 1
+multlist (x:xs) = x * (multlist xs)
+{--
+    i/p : multlist [2,3,4] , o/p : 24
+    stacktrace:
+    2 * (multlist [3,4])
+    2 * (3 * (multlist [4]))
+    2 * (3 * (4 * (multlist [])))
+    2 * (3 * (4 * 1))
+--}
+
+-- Accumalator recurssion
+amultlist [] acc        = acc
+amultlist (x:xs) acc    = amultlist xs (x * acc)
+
+--this has errors: TODO : FIXME
+{--
+kmultlist k []     = k 1
+kmultlist k (x:xs)  = kmultlist xs (\r -> k (r * x))
+--}
+
+kmultlist xx k = aux xx k
+    where   aux [] kr       = kr 1
+            aux (0:xs) kr   = k 0
+            aux (x:xs) kr = aux xs (\v -> kr (v *x))
+{--
+    i/p : multlist [2,3,4] creport, o/p : 24
+--}
+
+
+
 {--
 
 NOTE: THESE STATEMENTS BELOW MAY SHOW IMPERATIVE STYLE OF CODING.
