@@ -19,3 +19,7 @@ void example ()
     func(5.0);
     func(5,6,7);
 }
+
+enum {
+    Red, Green, Blue
+};
