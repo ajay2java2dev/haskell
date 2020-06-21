@@ -1,21 +1,38 @@
--- Reference : https://www.youtube.com/watch?v=xCut-QT2cpI&t=1s
 
--- A functor is a Type class which can be thought of an Interface
--- functor gives us a signature for mapping. We are trying here to map a operator over a function using a mapping kind of a function
--- fmap gives us the capability to map
--- haskel gives functors for Maybe, Either, Lists
+{--
+Reference : https://www.youtube.com/watch?v=xCut-QT2cpI&t=1s
 
---class Functor f where
---    fmap :: (a -> b) -> f a -> f b -- this means that gives a function (a -> b) apply the function f to a and return the function applied on b
+-- 1. A functor is a Type class which can be thought of an Interface
+-- 2. functor gives us a signature for mapping. We are trying here to map a operator over a function using a mapping kind of a function
+-- 3. fmap gives us the capability to map
+-- 4. haskel gives functors for Maybe, Either, Lists
+-- 5. unwrapped value : Value on its own. For example : (+3) 9 where 9 is unwrapped value
+-- 6. wrapped value : surrounded by something. For example : Maybe. (+3) Just 9 simply wont work since 9 is still wrapped
 
--- unwrapped value : Value on its own. For example : (+3) 9 where 9 is unwrapped value
--- wrapped value : surrounded by something. For example : Maybe. (+3) Just 9 simply wont work since 9 is still wrapped
+use below to define a map for many different types and the f-type you pass is must be a parametrized type
 
+class Functor f where
+    fmap :: (a -> b) -> f a -> f b -- this means that gives a function (a -> b) apply the function f to a and return the function applied on b
+
+instance Functor Maybe where
+    fmap func (Just x) = Just (func x)
+    fmap _ Nothing = f x : fmap f xs
+
+instance Functor [] where
+    fmap func [] = []
+    fmap func (x:xs) = func x : fmap func xs
+
+--}
+
+
+
+-- But lets try something of our own.
 data Maybe2 a = Just2 a | Nothing2 deriving Show
 
 instance Functor Maybe2 where
     fmap func (Just2 a) = Just2 (func a)
-    fmap func Nothing2 = Nothing2 
+    fmap func Nothing2 = Nothing2
+
 
 --infix notation <$>
 x = (+3) <$> [1,2,3]
