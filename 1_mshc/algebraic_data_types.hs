@@ -68,8 +68,40 @@ instance Show UglyQuaternion where
         show (qK q') ++ ")"
 
 
+-- EQ Class
+data Foo = Foo Int
+x = Foo 10
+y = Foo 10
+
+instance Eq Foo where
+    (==) (Foo i) (Foo j) = i == j
+
+data Foo1 = Foo1 Int deriving Eq
+x1 = Foo 10
+y1 = Foo 20
+
+class (Eq a) => Ord a where
+    compare                 ::      a -> a -> Ordering
+    (<), (<=), (>), (>=)    ::      a -> a -> Bool
+    max, min                ::      a -> a -> a
+
+    compare x y =   if x == y then EQ
+                    else if x SimpleColorumType.<= y then LT
+                    else GT
+
+    x < y   = case SimpleColorumType.compare x y of { LT -> Prelude.True; _ -> Prelude.False}
+    x <= y  = case SimpleColorumType.compare x y of { GT -> Prelude.False; _ -> Prelude.True}
+    x > y   = case SimpleColorumType.compare x y of { GT -> Prelude.True; _ -> Prelude.False}
+    x >= y   = case SimpleColorumType.compare x y of { LT -> Prelude.True; _ -> Prelude.False}
+
+    max x y = if x SimpleColorumType.<= y then y else x
+
 main :: IO ()
 main = do
+
+    print $ (x == y)
+    print $ (x1==y1)
+
     putChar '\n'
 
     let x = RGB 10 20 21
