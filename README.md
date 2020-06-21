@@ -2,6 +2,9 @@
 
 ## 1. Meaningful simple haskel code
 
+    - ### README:
+        1. Dot operator in haskell: https://medium.com/@zarinfam/what-is-the-dot-operator-in-haskell-74b92a4d94e9
+
 ## 2. Further simplified and understandable code
 
 ## 3. A little difficult code
