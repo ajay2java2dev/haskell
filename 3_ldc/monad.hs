@@ -7,7 +7,7 @@
         -- we can do something like (Just 4) >>= half
         -- if half x was something like half (Just x) we would have gotten half (Just 10) => Just 5
             -- but that would need us changing the function declaration everytime
-        -- instead >>= is used which 
+        -- instead >>= is used which is basically called a "bind"
 
 -- so below half 10 will give answer 5 but half (Just 10) will not work
 half x = if even x
@@ -61,6 +61,21 @@ instance Monad Tree where
 
 x3 = Branch (Tip 4) (Branch (Tip 5) (Tip 6))
 
+--calculator with monad
+minc x = x >>= (\xx -> return (xx + 1))
+madd a b = a >>= (\aa -> b >>= (\bb -> return (aa ++ bb)))
+
+-- handy lifty monadic functions
+liftM f a = a >>= (\aa -> return (f aa))
+liftM2 f a b = a >>= (\aa -> b >>= (\bb -> return (f aa bb)))
+
+-- so now
+{--
+minc1        = liftM inc
+madd1        = liftM2 add
+msub1        = liftM2 sub
+mdiv1 a b    = a >>= (\aa -> b >>= (\bb -> if bb == 0 then fail "/0" else return (aa `div` bb))
+--}
 
 main :: IO ()
 main = do
