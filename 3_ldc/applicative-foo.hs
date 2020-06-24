@@ -36,6 +36,9 @@ x2_new  = Foo inc <*> (Foo 20)
 
 plus a b = a + b
 
+
+
+
 main :: IO ()
 main = do
     print x1_old    -- ans : 31
