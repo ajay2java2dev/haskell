@@ -36,6 +36,7 @@ instance Functor Maybe2 where
 
 --infix notation <$>
 x = (+3) <$> [1,2,3]
+y = [(+1),(*100),(*5)] <*> [1,2,3]
 
 -- Applying functors to your own DS -- fmap will be applied at the leaf/tip nodes
 data Tree a = Node a | Branch (Tree a) (Tree a) deriving Show
@@ -60,5 +61,7 @@ main = do
 
     print $ (+3) <$> [1,2,3]
     print x
-
+    print $ y
+    
     print $ fmap (+3) xTree
+    

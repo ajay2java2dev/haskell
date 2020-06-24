@@ -1,3 +1,8 @@
+{--
+Few points to rem:
+    - data keyword : to create algebraic data types
+    - newtype keyword: to create synonyms.
+--}
 -- Monad, just like a function and a applicative, is a typeclass
 -- Monad applies a function (regular fxn's like (+3) (*2))to a wrapped value and returns a wrapped value
 
@@ -122,9 +127,4 @@ main = do
     print $ g 4
     print $ g 12
 
-    print $ x3 >>= g
-    let x10 = runState ex2a 10
-    print $ x10
-
-    let x11 = runState (fmap inc ex2a) 10
-    print x11
+   
