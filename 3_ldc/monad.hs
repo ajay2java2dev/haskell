@@ -77,6 +77,42 @@ msub1        = liftM2 sub
 mdiv1 a b    = a >>= (\aa -> b >>= (\bb -> if bb == 0 then fail "/0" else return (aa `div` bb))
 --}
 
+--Statefull computation , encapsulation
+-- newtype keyword and the record type we use for representing state
+-- pure operation for the state monad
+-- bind operation for the state monad and trace an excecution
+-- define get and put to allow direct manipulation of the stateful part of the monad
+
+
+--1. defining stateful computation. The incoming Integer is a state and the output tuple is a result and the state
+ex1 :: Integer -> (Integer, Integer)
+ex1 s = (s * 2, s + 1)
+
+{--
+        *Main> ex1 10
+        (20,11)
+--}
+
+-- Encapsulation 
+-- Left we have a type called State with 2 params
+    -- s is the state type and a as the record type
+-- On the right we have the Constructor called state itself 
+    -- Inside that we have record type - runState
+    -- runState and State are synonyms because of the newtype
+newtype State s a = State {runState :: s -> (a,s)}
+
+-- the runState represets the access function type of the record
+ex2a :: State Integer Integer
+ex2a = State {runState = ex1}
+
+ex2b :: State Integer Integer
+ex2b = State ex1
+
+inc x = x + 1
+
+
+
+
 main :: IO ()
 main = do
     print x
@@ -87,3 +123,8 @@ main = do
     print $ g 12
 
     print $ x3 >>= g
+    let x10 = runState ex2a 10
+    print $ x10
+
+    let x11 = runState (fmap inc ex2a) 10
+    print x11
