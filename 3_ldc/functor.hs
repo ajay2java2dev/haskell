@@ -1,5 +1,20 @@
 
+        
 {--
+
+*Main> :info Functor
+class Functor (f :: * -> *) where
+  fmap :: (a -> b) -> f a -> f b
+  (<$) :: a -> f b -> f a
+  {-# MINIMAL fmap #-}
+        -- Defined in ‘GHC.Base’
+instance Functor (Either a) -- Defined in ‘Data.Either’
+instance Functor [] -- Defined in ‘GHC.Base’
+instance Functor Maybe -- Defined in ‘GHC.Base’
+instance Functor IO -- Defined in ‘GHC.Base’
+instance Functor ((->) r) -- Defined in ‘GHC.Base’
+instance Functor ((,) a) -- Defined in ‘GHC.Base’
+
 Reference : https://www.youtube.com/watch?v=xCut-QT2cpI&t=1s
 
 -- 1. A functor is a Type class which can be thought of an Interface. These are types whose values can be mapped over.
@@ -40,7 +55,6 @@ class Functor f1 where
     fmap :: (b -> c) -> Either a b -> Either a c
 
 --}
-
 
 
 -- But lets try something of our own.
@@ -86,6 +100,18 @@ instance Functor IO2 where
     fmap f action = do
         result <- action
         return (f result)
+--}
+
+--Now the fun part. FUNCTION FUNCTORSSSSSS
+
+-- How about using (->) and considering it as a type constructor
+-- r -> a can be written as (->) r a where the type constructor take 2 arguments.
+-- but rem, the Functor works only on one type constructor which takes 1 argument.
+
+{--
+instance Functor ((->) r1) where
+    fmap f g = (\x -> f (g x))
+
 --}
 
 main :: IO ()

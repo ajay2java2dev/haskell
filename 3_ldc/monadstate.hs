@@ -25,7 +25,6 @@ instance Monad (State s) w
                                (z, s3)  = runState (f y) s2
                             in (z,s3)))
 
-
 main :: IO()
 main = do
     
