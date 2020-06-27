@@ -1,6 +1,5 @@
 
 module SimpleColorumType (Color) where
-    
 
 import Data.Complex
 import Data.Ratio
