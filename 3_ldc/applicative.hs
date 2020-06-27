@@ -2,7 +2,7 @@
 -- Applicative is a Type class and like a Interface again
 -- They allow us to wrap FUNCTIONS and not just a Value. 
     -- For example : Just (+1) <*> (Just 8) which gives output in wrapped format Just 9
-
+    -- List are examples of applicatives
 -- Applicate functor signature
 class (Functor f) => Applicative f where
     pure a :: a -> f a -- takes a value and put it into a container
